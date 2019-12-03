@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Product List Component
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                    <div class="col-md-2">
+                            Filter By:
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" [(ngModel)]="listFilter"/>
+                        </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" [ngClass]="box1">
+                    <h3 [ngStyle]="{color:'blue'}">Filtered By: {{listFilter}}</h3>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table" *ngIf="products && products.length">
+                    <thead>
+                            <th>
+                                <button type="button" class="btn btn-primary" (click)="toggleImage()">Show Images</button>
+                            </th>
+                            <th>Product</th>
+                            <th>Code</th>
+                            <th>Availability</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor='let product of products'>
+                            <td>
+                               <img 
+                               *ngIf='showImage'
+                               [src]='product.imageUrl'
+                               [style.width.px]='imageWidth'
+                               [style.margin.px]='imageMargin'
+                               />
+                            </td>
+                            <td>
+                                {{product.productName | uppercase }}
+                            </td>
+                            <td>
+                                {{product.productCode | lowercase | ConvertToSpace:'-'}}
+                            </td>
+                            <td>
+                                {{product.releaseDate}}
+                            </td>
+                            <td [ngStyle]="{'background':product.price>600 ? 'red' : 'green'}">
+                                {{product.price | currency:'INR'}}
+                            </td>
+                            <td>
+                                {{product.starRating}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </div>          
+        </div>
+    </div>
+</div>
